@@ -1,5 +1,5 @@
-#ifndef DEBUGGER_MENUS
-#define DEBUGGER_MENUS
+#ifndef MAKE_MENU_H
+#define MAKE_MENU_H
 
 #include <curses.h>
 #include <menu.h>
@@ -7,7 +7,6 @@
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(*a))
 #define CTRLD 	4
-
 typedef struct _MenuChoice
 {
     char name[20];
@@ -17,4 +16,4 @@ typedef struct _MenuChoice
 
 void make_menu(MenuChoice choices[], size_t n_choices);
 
-#endif // !DEBUGGER_MENUS
+#endif // !MAKE_MENU_H

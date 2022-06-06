@@ -1,4 +1,4 @@
-#include "debugger_menus.h"
+#include "make_menu.h"
 
 
 void make_menu(MenuChoice choices[], size_t n_choices)
@@ -21,18 +21,26 @@ void make_menu(MenuChoice choices[], size_t n_choices)
 	my_items[n_choices] = (ITEM *)NULL;
 
 	my_menu = new_menu((ITEM **)my_items);
-	mvprintw(LINES - 2, 0, "F1 to Exit");
+	mvprintw(LINES - 2, 0, "Q to Exit");
 	post_menu(my_menu);
 	refresh();
 
-	while((c = getch()) != KEY_F(1))
-	{   switch(c)
+	while((c = getch()) != 'q' && c != 'Q')
+	{   
+		switch(c)
 	    {	case KEY_DOWN:
 		        menu_driver(my_menu, REQ_DOWN_ITEM);
 				break;
 			case KEY_UP:
 				menu_driver(my_menu, REQ_UP_ITEM);
 				break;
+			case 0x0a:  // The enter key was pressed.
+				unpost_menu(my_menu);
+				refresh();
+				(*(choices[current_item(my_menu)->index].action_func))();
+				post_menu(my_menu);
+				refresh();
+				break;	
 		}
 	}	
 
