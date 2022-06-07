@@ -21,7 +21,7 @@ void attach_to_process(){
     }
     for(i=0; (ATTACHED_PROCESSES[i] != EMPTY_PID_CELL_MARKER) && (i < ARRAY_SIZE(ATTACHED_PROCESSES)); ++i);
     if ( i >= ARRAY_SIZE(ATTACHED_PROCESSES)) {
-        printw("Maximum attached processes reached. Please detach from some and try again.");
+        printw("Maximum number of attached processes reached. Please detach from some and try again.");
         wait_for_key_press();
         return;
     } 
