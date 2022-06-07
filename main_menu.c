@@ -18,11 +18,15 @@ void attach_to_process(){
         printw("Maximum attached processes reached. Please detach from some and try again.");
         return;
     } 
-    // attach
-    ptrace(PTRACE_ATTACH, pid, 0, 0);
-    // waitpid(pid);
-    ATTACHED_PROCESSES[i] = pid;
-    printw("Process trace attached.");
-
+    // attach trace to process
+    if (ptrace(PTRACE_ATTACH, pid, 0, 0) == -1) {
+        perror("Failed to attach to process");
+    } else {
+        // waitpid(pid);
+        ATTACHED_PROCESSES[i] = pid;
+        printw("Process trace attached.\n");
+    }
+    printw("Press any key to continue...");
+    getch();
 }
 
