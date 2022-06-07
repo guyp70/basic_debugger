@@ -7,12 +7,7 @@ void make_menu(MenuChoice choices[], size_t n_choices)
 	MENU *my_menu;
 	size_t i;
 	//ITEM *cur_item;
-	
-	
-	initscr();
-	cbreak();
-	noecho();
-	keypad(stdscr, TRUE);
+
 	
 	my_items = (ITEM **)calloc(n_choices + 1, sizeof(ITEM *));
 
@@ -38,6 +33,7 @@ void make_menu(MenuChoice choices[], size_t n_choices)
 				unpost_menu(my_menu);
 				refresh();
 				(*(choices[current_item(my_menu)->index].action_func))();
+				clear();
 				post_menu(my_menu);
 				refresh();
 				break;	
@@ -47,5 +43,4 @@ void make_menu(MenuChoice choices[], size_t n_choices)
 	free_item(my_items[0]);
 	free_item(my_items[1]);
 	free_menu(my_menu);
-	endwin();
 }
