@@ -7,6 +7,7 @@
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(*a))
 #define CTRLD 	4
+#define ENTER_KEY_VALUE '\n'
 typedef struct _MenuChoice
 {
     char name[20];

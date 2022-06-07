@@ -34,7 +34,7 @@ void make_menu(MenuChoice choices[], size_t n_choices)
 			case KEY_UP:
 				menu_driver(my_menu, REQ_UP_ITEM);
 				break;
-			case 0x0a:  // The enter key was pressed.
+			case ENTER_KEY_VALUE:  //curses' KEY_ENTER reffers to numpad ENTER key.
 				unpost_menu(my_menu);
 				refresh();
 				(*(choices[current_item(my_menu)->index].action_func))();

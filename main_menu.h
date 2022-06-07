@@ -15,8 +15,7 @@ void attach_to_process();
 #define MAIN_MENU_CHOICES ((MenuChoice[])  {	\
 	{"attach", "attach to process", &attach_to_process},	\
 	{"dettach", "dettach from process", (void(*)()) NULL},	\
-	{"debug", "debug attached process", &debug_process_menu},	\
-	{"exit", "", (void(*)()) NULL}	\
+	{"debug", "debug attached process", &debug_process_menu}	\
 })
 
 
