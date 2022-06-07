@@ -11,7 +11,10 @@ extern int ATTACHED_PROCESSES[256];
 void main_menu();
 void attach_to_process();
 
-#define MAIN_MENU_CHOICES_LEN 	4
+#define MAIN_MENU_CHOICES_LEN 4
+#define EMPTY_PID_CELL_MARKER 0
+#define MIN_PID	1
+#define MAX_PID	99999
 #define MAIN_MENU_CHOICES ((MenuChoice[])  {	\
 	{"attach", "attach to process", &attach_to_process},	\
 	{"dettach", "dettach from process", (void(*)()) NULL},	\

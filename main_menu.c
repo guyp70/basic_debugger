@@ -6,27 +6,41 @@ void main_menu(){
 }
 
 
+void wait_for_key_press() {
+    printw("Press any key to continue...");
+    getch();
+}
+
+
 void attach_to_process(){
-    int i = -1;
+    size_t i, empty_cell_idx;
     int pid;
     printw("Please enter pid to attach to: ");
-    while ((scanw("%d", &pid) != 1) && (1 <= pid && pid <= 99999)) {
+    while ((scanw("%d", &pid) != 1) && (MIN_PID <= pid && pid <= MAX_PID)) {
         printw("Bad input format. Please enter a valid pid: ");
     }
-    while (ATTACHED_PROCESSES[++i] != 0);
-    if ((unsigned long) i >= ARRAY_SIZE(ATTACHED_PROCESSES)) {
+    for(i=0; (ATTACHED_PROCESSES[i] != EMPTY_PID_CELL_MARKER) && (i < ARRAY_SIZE(ATTACHED_PROCESSES)); ++i);
+    if ( i >= ARRAY_SIZE(ATTACHED_PROCESSES)) {
         printw("Maximum attached processes reached. Please detach from some and try again.");
+        wait_for_key_press();
         return;
     } 
+    empty_cell_idx = i;
+    for(i=0; (ATTACHED_PROCESSES[i] != pid) && (i < ARRAY_SIZE(ATTACHED_PROCESSES)); ++i);
+    if (i < ARRAY_SIZE(ATTACHED_PROCESSES)) {
+        printw("Process %d was already attached a trace.", pid);
+        wait_for_key_press();
+        return;
+    }
     // attach trace to process
     if (ptrace(PTRACE_ATTACH, pid, 0, 0) == -1) {
         perror("Failed to attach to process");
     } else {
         // waitpid(pid);
-        ATTACHED_PROCESSES[i] = pid;
+        ATTACHED_PROCESSES[empty_cell_idx] = pid;
         printw("Process trace attached.\n");
     }
-    printw("Press any key to continue...");
-    getch();
+    wait_for_key_press();
 }
+
 
