@@ -4,8 +4,9 @@
 #include <curses.h>
 #include <menu.h>
 #include <stdlib.h>
+#include "utils.h"
 
-#define ARRAY_SIZE(a) (sizeof(a) / sizeof(*a))
+
 #define CTRLD 	4
 #define ENTER_KEY_VALUE '\n'
 typedef struct _MenuChoice
