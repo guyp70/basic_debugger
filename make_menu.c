@@ -32,7 +32,7 @@ void make_menu(MenuChoice choices[], size_t n_choices)
 			case ENTER_KEY_VALUE:  //curses' KEY_ENTER reffers to numpad ENTER key.
 				unpost_menu(my_menu);
 				refresh();
-				(*(choices[current_item(my_menu)->index].action_func))();
+				(*(choices[current_item(my_menu)->index].action_func))(choices[current_item(my_menu)->index].data);
 				clear();
 				post_menu(my_menu);
 				refresh();

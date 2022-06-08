@@ -1,6 +1,7 @@
 #include "process_debug.h"
 
 
-void debug_process_menu() {
-    make_menu(PROCESS_MENU_CHOICES, PROCESS_MENU_CHOICES_LEN);
+void debug_process_menu(void *data) {
+    UNUSED(data);
+    make_menu(PROCESS_DEBUG_MENU_CHOICES, PROCESS_DEBUG_MENU_CHOICES_LEN);
 }

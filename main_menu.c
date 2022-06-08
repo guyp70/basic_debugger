@@ -6,8 +6,9 @@ void main_menu(){
 }
 
 
-void detach_from_process(){
+void detach_from_process(void *data){
     int pid, pid_cell_idx;
+    UNUSED(data);
     pid = get_pid_from_user();
     pid_cell_idx = find_pid_cell_idx(pid);
     if (pid_cell_idx == -1) {
@@ -26,8 +27,9 @@ void detach_from_process(){
 }
 
 
-void attach_to_process(){
+void attach_to_process(void *data){
     size_t i, empty_cell_idx;
+    UNUSED(data);
     int pid;
 
     pid = get_pid_from_user();
@@ -55,8 +57,9 @@ void attach_to_process(){
 }
 
 
-void attached_processes_menu() {
+void attached_processes_menu(void *data) {
     size_t i, menu_idx = 0, num_of_attached_procs;
+    UNUSED(data);
     MenuChoice *procs_menu_choices;
     num_of_attached_procs = get_num_of_attached_processes();
 
@@ -73,7 +76,7 @@ void attached_processes_menu() {
                 //TODO: ADD ERROR HANDLING
             }
             procs_menu_choices[menu_idx].action_func = &debug_process_menu;
-
+            procs_menu_choices[menu_idx].data = ((void*) &(ATTACHED_PROCESSES[i]));
         }
     }
     make_menu(procs_menu_choices, num_of_attached_procs);

@@ -9,11 +9,14 @@
 
 #define CTRLD 	4
 #define ENTER_KEY_VALUE '\n'
+#define UNUSED(x) (void)(x)
+
 typedef struct _MenuChoice
 {
     char name[20];
     char description[256];
-    void (*action_func)();
+    void (*action_func)(void*);
+    void *data;
 } MenuChoice;
 
 void make_menu(MenuChoice choices[], size_t n_choices);

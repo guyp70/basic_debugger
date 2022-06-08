@@ -18,23 +18,23 @@ void main_menu();
 
 
 /**
- * @brief Prompt user for pid and attach a trace to the specified process.
+ * @brief Prompt user for pid and attach a trace to the specified process. (data is ignored)
  * 
  */
-void attach_to_process();
+void attach_to_process(void *data);
 
 /**
- * @brief Prompt user for pid and detach the trace from specified process.
+ * @brief Prompt user for pid and detach the trace from specified process. (data is ignored)
  * 
  */
-void detach_from_process();
+void detach_from_process(void *data);
 
 
 /**
- * @brief Enter list of attached processes menu and handle user input.
+ * @brief Enter list of attached processes menu and handle user input. (data is ignored)
  * 
  */
-void attached_processes_menu();
+void attached_processes_menu(void *data);
 
 
 #define EMPTY_PID_CELL_MARKER 0
@@ -42,9 +42,9 @@ void attached_processes_menu();
 
 #define MAIN_MENU_CHOICES_LEN 4
 #define MAIN_MENU_CHOICES ((MenuChoice[])  {	\
-	{"attach", "attach trace to process", &attach_to_process},	\
-	{"detach", "detach trace from process", &detach_from_process},	\
-	{"debug", "debug attached process", &attached_processes_menu}	\
+	{"attach", "attach trace to process", &attach_to_process, (void*) NULL},	\
+	{"detach", "detach trace from process", &detach_from_process, (void*) NULL},	\
+	{"debug", "debug attached process", &attached_processes_menu, (void*) NULL}	\
 })
 
 #endif // MAIN_MENU_H
