@@ -48,6 +48,7 @@ void attach_to_process(void *data){
     // attach trace to process
     if (ptrace(PTRACE_ATTACH, pid, 0, 0) == -1) {
         perror("Failed to attach to process");
+        //TODO: add option for force remove (if proc finished running for example)
     } else {
         // waitpid(pid);
         ATTACHED_PROCESSES[empty_cell_idx] = pid;

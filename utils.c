@@ -41,6 +41,7 @@ size_t get_num_of_attached_processes() {
 int get_process_cmd_by_pid(const int pid, char* buf) {
     size_t i;
     FILE* f;
+    char *err_msg_init;
 
     sprintf(buf, "/proc/%d/cmdline", pid);
     f = fopen(buf,"r");
@@ -58,12 +59,18 @@ int get_process_cmd_by_pid(const int pid, char* buf) {
         }
         else {
             //TODO: ADD ERROR HANDLING
+            err_msg_init = "Empty command line. error: ";
+            strcpy(buf, err_msg_init);
+            strerror_r(errno, &(buf[strlen(err_msg_init) - 1]), MAX_PROCESS_CMD_LEN - (strlen(err_msg_init) - 1));
             return -1;
         }
         fclose(f);
     }
     else {
         //TODO: ADD ERROR HANDLING
+        err_msg_init = "Porcess not found. error: ";
+        strcpy(buf, err_msg_init);
+        strerror_r(errno, &(buf[strlen(err_msg_init) - 1]), MAX_PROCESS_CMD_LEN - (strlen(err_msg_init) - 1));
         return -1;
     }
     return 0;

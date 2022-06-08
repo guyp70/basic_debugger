@@ -4,7 +4,8 @@
 #include <curses.h>
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <errno.h>
+#include <string.h>
 
 #define EMPTY_PID_CELL_MARKER 0
 extern int ATTACHED_PROCESSES[256];
