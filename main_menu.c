@@ -36,12 +36,12 @@ void attach_to_process(){
         wait_for_key_press();
         return;
     }
-    for(i=0; (ATTACHED_PROCESSES[i] != EMPTY_PID_CELL_MARKER) && (i < ARRAY_SIZE(ATTACHED_PROCESSES)); ++i);
-    if ( i >= ARRAY_SIZE(ATTACHED_PROCESSES)) {
+    if (get_num_of_attached_processes() >= ARRAY_SIZE(ATTACHED_PROCESSES)) {
         printw("Maximum number of attached processes reached. Please detach from some and try again.");
         wait_for_key_press();
         return;
     } 
+    for(i=0; (ATTACHED_PROCESSES[i] != EMPTY_PID_CELL_MARKER) && (i < ARRAY_SIZE(ATTACHED_PROCESSES)); ++i);
     empty_cell_idx = i;
     // attach trace to process
     if (ptrace(PTRACE_ATTACH, pid, 0, 0) == -1) {
@@ -55,3 +55,27 @@ void attach_to_process(){
 }
 
 
+void attached_processes_menu() {
+    size_t i, menu_idx = 0, num_of_attached_procs;
+    MenuChoice *procs_menu_choices;
+    num_of_attached_procs = get_num_of_attached_processes();
+
+    procs_menu_choices = (MenuChoice*) (calloc(num_of_attached_procs, sizeof(MenuChoice)));
+    if (NULL == procs_menu_choices) {
+        //TODO: ADD ERROR HANDLING
+    }
+
+    menu_idx = 0;
+    for (i=0; i < ARRAY_SIZE(ATTACHED_PROCESSES); i++) {
+        if (EMPTY_PID_CELL_MARKER != ATTACHED_PROCESSES[i]){
+            sprintf(procs_menu_choices[menu_idx].name, "%d", ATTACHED_PROCESSES[i]);
+            if (-1 == get_process_cmd_by_pid(ATTACHED_PROCESSES[i], procs_menu_choices[menu_idx].description)) {
+                //TODO: ADD ERROR HANDLING
+            }
+            procs_menu_choices[menu_idx].action_func = &debug_process_menu;
+
+        }
+    }
+    make_menu(procs_menu_choices, num_of_attached_procs);
+    free(procs_menu_choices);
+}
