@@ -22,25 +22,42 @@ void wait_for_key_press();
 /**
  * @brief Prompt user for a long long in hex form and update the pointer given. 
  * 
- * @param value Should be a void pointer to unsigned long long. (i.e. unsigned short long long pid = 4; set_value_h((void*)pid); )
+ * @param addr Should be a void pointer to unsigned long long. (i.e. unsigned short long long pid = 4; set_value_h((void*)pid); )
  */
-void set_value_llu(void *value);
+void set_value_llu(void *addr);
+
+/**
+ * @brief Prompt user for a long long in hex form and update the pointer given. 
+ * 
+ * @param addr Should be a void pointer to unsigned long long. (i.e. unsigned short long long pid = 4; set_value_h((void*)pid); )
+ * @return int (-1 if failed, 0 if successfull)
+ */
+int get_value_llu(unsigned long long *addr);
+
+
+/**
+ * @brief Prompt user for a pointer (dee %p in man scanf) and update the pointer given. 
+ * 
+ * @param addr Should be an unsigned long long pointer. (i.e. unsigned short long long addr; get_address(&addr); )
+ * @return int (-1 if failed, 0 if successfull)
+ */
+int get_address(unsigned long long *addr);
 
 
 /**
  * @brief Prompt user for a short int in hex form and update the pointer given. 
  * 
- * @param value Should be a void pointer to unsigned short int. (i.e. unsigned short int pid = 4; set_value_h((void*)pid); )
+ * @param addr Should be a void pointer to unsigned short int. (i.e. unsigned short int pid = 4; set_value_h((void*)pid); )
  */
-void set_value_h(void *value);
+void set_value_h(void *addr);
 
 
 /**
  * @brief Prompt user for an int in hex form and update the pointer given. 
  * 
- * @param value Should be a void pointer to unsigned int. (i.e. unsigned int pid = 1928; set_value_int((void*)pid); )
+ * @param addr Should be a void pointer to unsigned int. (i.e. unsigned int pid = 1928; set_value_int((void*)pid); )
  */
-void set_value_int(void *value);
+void set_value_int(void *addr);
 
 /**
  * @brief Prompt user for pid and return the pid entered.

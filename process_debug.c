@@ -18,6 +18,46 @@ void process_continue(void *data){
     wait_for_key_press();
 }
 
+void process_read_memory(void *data){
+    int pid = *((int*) data);
+    unsigned long long addr = 0;
+    unsigned long long peeked_word = 0;
+
+    if (get_address(&addr) == -1) {
+        return;
+    }
+    errno = 0;
+    peeked_word = ptrace(PTRACE_PEEKDATA, pid, (void*) &addr, NULL);
+    if (errno != 0) {
+        perror("Failed to peek into memory at the specified address");
+    } else {
+        printw("Process memory at address %p: %Xll.\n", addr, peeked_word);
+    }
+    wait_for_key_press();
+}
+
+void process_set_memory(void *data){
+    int pid = *((int*) data);
+    unsigned long long addr = 0;
+    unsigned long long word = 0;
+
+    printw("Dest address:\n");
+    if (get_address(&addr) == -1) {
+        return;
+    }
+    printw("Word to write to dest:\n");
+    if (get_value_llu(&word) == -1) {
+        return;
+    }
+    ;
+    if (ptrace(PTRACE_POKEDATA, pid, (void*) &addr, (void*) &word) == -1) {
+        perror("Failed to peek into memory at the specified address");
+    } else {
+        printw("Process memory at address %p was set to value: %Xll.\n", addr, word);
+    }
+    wait_for_key_press();
+}
+
 void process_get_registers(void *data){
     struct user_fpregs_struct fpregs;
     struct user_regs_struct regs;

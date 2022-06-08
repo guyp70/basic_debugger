@@ -40,14 +40,31 @@ void process_get_registers(void *data);
 void process_set_registers(void *data);
 
 
+/**
+ * @brief Print the process' memory at the specified address.
+ * 
+ * @param data Should be a void pointer to pid int. (i.e. int pid = 1928; debug_process_menu((void*)pid); )
+ */
+void process_read_memory(void *data);
 
 
-#define PROCESS_DEBUG_MENU_CHOICES_LEN    3
+
+/**
+ * @brief Set the process' memory at the specified address to the specified value.
+ * 
+ * @param data Should be a void pointer to pid int. (i.e. int pid = 1928; debug_process_menu((void*)pid); )
+ */
+void process_set_memory(void *data);
+
+
+#define PROCESS_DEBUG_MENU_CHOICES_LEN    5
 #define ARRAY_SIZE(a) (size_t)(sizeof(a) / sizeof(*a))
 #define PROCESS_DEBUG_MENU_CHOICES(pid)  ((MenuChoice[])  {    \
     {"continue", "Resume process run", &process_continue, (void*) (&pid)},   \
     {"regs", "Print the process' registers", &process_get_registers, (void*) (&pid)},   \
-    {"wregs", "Set the process' registers to values given", &process_set_registers, (void*) (&pid)}   \
+    {"wregs", "Set the process' registers to values given", &process_set_registers, (void*) (&pid)},   \
+    {"rmem", "Print the process at a specified addres.' registers to values given", &process_read_memory, (void*) (&pid)},   \
+    {"wmem", "Set the process' memory at a specified addres.", &process_set_memory, (void*) (&pid)}   \
 })
 
 #define PROCESS_WREGS_MENU_CHOICES_LEN    35
