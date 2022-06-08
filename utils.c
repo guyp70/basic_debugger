@@ -78,3 +78,33 @@ int get_process_cmd_by_pid(const int pid, char* buf) {
 }
 
 
+void set_value_llu(void *value){
+    int n = 0;
+    printw("Please enter an hexadecimal value (long long): ");
+    if (scanw("%Xll ", ((unsigned long long*)(value)), &n) == 1 && 0 == n){
+        printw("Value recieved.\n");
+    } else {
+        printw("Bad format. Value not recieved.\n");
+    }
+    wait_for_key_press();
+}
+void set_value_h(void *value){
+    int n = 0;
+    printw("Please enter an hexadecimal value (short): ");
+    if (scanw("%Xh%n", ((unsigned short int*)(value)), &n) == 1 && 0 == n){
+        printw("Value recieved.\n");
+    } else {
+        printw("Bad format. Value not recieved.\n");
+    }
+    wait_for_key_press();
+}
+void set_value_int(void *value){
+    int n = 0;
+    printw("Please enter an hexadecimal value (int): ");
+    if (scanw("%X%n", ((unsigned int*)(value)), &n) == 1 && 0 == n){
+        printw("Value recieved.\n");
+    } else {
+        printw("Bad format. Value not recieved.\n");
+    }
+    wait_for_key_press();
+}

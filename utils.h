@@ -20,6 +20,29 @@ void wait_for_key_press();
 
 
 /**
+ * @brief Prompt user for a long long in hex form and update the pointer given. 
+ * 
+ * @param value Should be a void pointer to unsigned long long. (i.e. unsigned short long long pid = 4; set_value_h((void*)pid); )
+ */
+void set_value_llu(void *value);
+
+
+/**
+ * @brief Prompt user for a short int in hex form and update the pointer given. 
+ * 
+ * @param value Should be a void pointer to unsigned short int. (i.e. unsigned short int pid = 4; set_value_h((void*)pid); )
+ */
+void set_value_h(void *value);
+
+
+/**
+ * @brief Prompt user for an int in hex form and update the pointer given. 
+ * 
+ * @param value Should be a void pointer to unsigned int. (i.e. unsigned int pid = 1928; set_value_int((void*)pid); )
+ */
+void set_value_int(void *value);
+
+/**
  * @brief Prompt user for pid and return the pid entered.
  * 
  * @return int 

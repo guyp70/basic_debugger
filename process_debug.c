@@ -71,3 +71,33 @@ void process_get_registers(void *data){
     }
     wait_for_key_press();
 }
+
+void process_set_registers(void *data){
+    struct user_fpregs_struct fpregs;
+    struct user_regs_struct regs;
+    int pid = *((int*) data);
+
+    if (ptrace(PTRACE_GETREGS, pid, 0, &regs) == -1) {
+        perror("Failed to read process general purpose registers");
+        wait_for_key_press();
+        return;
+    }
+    if (ptrace(PTRACE_GETFPREGS, pid, 0, &fpregs) == -1) {
+        perror("Failed to read process floating point registers");
+        wait_for_key_press();
+        return;
+    }
+    make_menu(PROCESS_WREGS_MENU_CHOICES(regs, fpregs), PROCESS_WREGS_MENU_CHOICES_LEN);
+    if (ptrace(PTRACE_SETREGS, pid, 0, &regs) == -1) {
+        perror("Failed to set process general purpose registers");
+        wait_for_key_press();
+        return;
+    }
+    if (ptrace(PTRACE_SETFPREGS, pid, 0, &fpregs) == -1) {
+        perror("Failed to set process floating point registers");
+        wait_for_key_press();
+        return;
+    }
+    printw("Process registers updated.\n");
+    wait_for_key_press();
+}
