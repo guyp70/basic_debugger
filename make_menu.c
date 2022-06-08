@@ -39,7 +39,8 @@ void make_menu(MenuChoice choices[], size_t n_choices)
 				break;	
 		}
 	}	
-
+	clear();
+	refresh();
 	free_item(my_items[0]);
 	free_item(my_items[1]);
 	free_menu(my_menu);
