@@ -27,7 +27,7 @@ void process_read_memory(void *data){
         return;
     }
     errno = 0;
-    peeked_word = ptrace(PTRACE_PEEKDATA, pid, (void*) &addr, NULL);
+    peeked_word = ptrace(PTRACE_PEEKDATA, pid, (void*) addr, NULL);
     if (errno != 0) {
         perror("Failed to peek into memory at the specified address");
     } else {
@@ -50,7 +50,7 @@ void process_set_memory(void *data){
         return;
     }
     ;
-    if (ptrace(PTRACE_POKEDATA, pid, (void*) &addr, (void*) &word) == -1) {
+    if (ptrace(PTRACE_POKEDATA, pid, (void*) addr, (void*) word) == -1) {
         perror("Failed to write into memory at the specified address");
     } else {
         printw("Process memory at address %p was set to value: %llX.\n", addr, word);
