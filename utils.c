@@ -79,13 +79,13 @@ int get_process_cmd_by_pid(const int pid, char* buf) {
 
 
 int get_address(unsigned long long *addr){
-    int n = 0;
+    char c =0;
+    *addr = 0;
     printw("Please enter an hexadecimal address (unsigned long long): ");
-    if (scanw("%p%n", addr, &n) == 1 && n == 0){
-        printw("n %d %X11", n, addr);
+    if (scanw("%p%c", addr, &c) == 1){
+        printw("Address enterd: %p\n", *addr);
         return 0;
     }
-    printw("n %d %p", n, addr);
     printw("Bad format. Value not recieved.\n");
     wait_for_key_press();
     return -1;
@@ -93,10 +93,10 @@ int get_address(unsigned long long *addr){
 
 
 int get_value_llu(unsigned long long *addr){
-    int n = 0;
+    char c = 0;
     printw("Please enter an hexadecimal value (long long): ");
-    if (scanw("%Xll%n", addr, &n) == 1 && 0 == n){
-        printw("Value recieved.\n");
+    if (scanw("%llX%c", addr, &c) == 1){
+        printw("Value recieved: %llX\n", (unsigned long long*)*addr);
         wait_for_key_press();
         return 0;
     } else {
@@ -113,20 +113,20 @@ void set_value_llu(void *addr){
 
 
 void set_value_h(void *addr){
-    int n = 0;
+    char c = 0;
     printw("Please enter an hexadecimal value (short): ");
-    if (scanw("%Xh%n", ((unsigned short int*)(addr)), &n) == 1 && 0 == n){
-        printw("Value recieved.\n");
+    if (scanw("%hX%c", ((unsigned short int*)(addr)), &c) == 1){
+        printw("Value recieved: %hX\n", (unsigned short int*) addr);
     } else {
         printw("Bad format. Value not recieved.\n");
     }
     wait_for_key_press();
 }
 void set_value_int(void *addr){
-    int n = 0;
+    char c = 0;
     printw("Please enter an hexadecimal value (int): ");
-    if (scanw("%X%n", ((unsigned int*)(addr)), &n) == 1 && 0 == n){
-        printw("Value recieved.\n");
+    if (scanw("%X%c", ((unsigned int*)(addr)), &c) == 1){
+        printw("Value recieved: %X\n", (unsigned int*) addr);
     } else {
         printw("Bad format. Value not recieved.\n");
     }

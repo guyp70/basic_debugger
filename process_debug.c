@@ -31,7 +31,7 @@ void process_read_memory(void *data){
     if (errno != 0) {
         perror("Failed to peek into memory at the specified address");
     } else {
-        printw("Process memory at address %p: %Xll.\n", addr, peeked_word);
+        printw("Process memory at address %p: %llX.\n", addr, peeked_word);
     }
     wait_for_key_press();
 }
@@ -51,9 +51,9 @@ void process_set_memory(void *data){
     }
     ;
     if (ptrace(PTRACE_POKEDATA, pid, (void*) &addr, (void*) &word) == -1) {
-        perror("Failed to peek into memory at the specified address");
+        perror("Failed to write into memory at the specified address");
     } else {
-        printw("Process memory at address %p was set to value: %Xll.\n", addr, word);
+        printw("Process memory at address %p was set to value: %llX.\n", addr, word);
     }
     wait_for_key_press();
 }
@@ -67,42 +67,42 @@ void process_get_registers(void *data){
         perror("Failed to read process general purpose registers");
     } else {
         printw("General purpose registers:\n");
-        printw("cs: %Xll\n", regs.cs);
-        printw("ds: %Xll\n", regs.ds);
-        printw("es: %Xll\n", regs.es);
-        printw("eflags: %Xll\n", regs.eflags);
-        printw("fs: %Xll\n", regs.fs);
-        printw("fs_base: %Xll\n", regs.fs_base);
-        printw("gs: %Xll\n", regs.gs);
-        printw("gs_base: %Xll\n", regs.gs_base);
-        printw("orig_rax: %Xll\n", regs.orig_rax);
-        printw("r8: %Xll\n", regs.r8);
-        printw("r9: %Xll\n", regs.r9);
-        printw("r10: %Xll\n", regs.r10);
-        printw("r11: %Xll\n", regs.r11);
-        printw("r12: %Xll\n", regs.r12);
-        printw("r13: %Xll\n", regs.r13);
-        printw("r14: %Xll\n", regs.r14);
-        printw("r15: %Xll\n", regs.r15);
-        printw("rax: %Xll\n", regs.rax);
-        printw("rbx: %Xll\n", regs.rbx);
-        printw("rcx: %Xll\n", regs.rcx);
-        printw("rbp: %Xll\n", regs.rbp);
-        printw("rdi: %Xll\n", regs.rdi);
-        printw("rdx: %Xll\n", regs.rdx);
-        printw("rip: %Xll\n", regs.rip);
-        printw("rsi: %Xll\n", regs.rsi);
-        printw("rsp: %Xll\n", regs.rsp);
-        printw("ss: %Xll\n", regs.ss);
+        printw("cs: %llX\n", regs.cs);
+        printw("ds: %llX\n", regs.ds);
+        printw("es: %llX\n", regs.es);
+        printw("eflags: %llX\n", regs.eflags);
+        printw("fs: %llX\n", regs.fs);
+        printw("fs_base: %llX\n", regs.fs_base);
+        printw("gs: %llX\n", regs.gs);
+        printw("gs_base: %llX\n", regs.gs_base);
+        printw("orig_rax: %llX\n", regs.orig_rax);
+        printw("r8: %llX\n", regs.r8);
+        printw("r9: %llX\n", regs.r9);
+        printw("r10: %llX\n", regs.r10);
+        printw("r11: %llX\n", regs.r11);
+        printw("r12: %llX\n", regs.r12);
+        printw("r13: %llX\n", regs.r13);
+        printw("r14: %llX\n", regs.r14);
+        printw("r15: %llX\n", regs.r15);
+        printw("rax: %llX\n", regs.rax);
+        printw("rbx: %llX\n", regs.rbx);
+        printw("rcx: %llX\n", regs.rcx);
+        printw("rbp: %llX\n", regs.rbp);
+        printw("rdi: %llX\n", regs.rdi);
+        printw("rdx: %llX\n", regs.rdx);
+        printw("rip: %llX\n", regs.rip);
+        printw("rsi: %llX\n", regs.rsi);
+        printw("rsp: %llX\n", regs.rsp);
+        printw("ss: %llX\n", regs.ss);
     }
     if (ptrace(PTRACE_GETFPREGS, pid, 0, &fpregs) == -1) {
         perror("Failed to read process floating point registers");
     } else {
         printw("Floating point registers:\n");
-        printw("cwd: %Xh\n", fpregs.cwd);
-        printw("swd: %Xh\n", fpregs.swd);
-        printw("ftw: %Xh\n", fpregs.ftw);
-        printw("fop: %Xh\n", fpregs.fop);
+        printw("cwd: %hX\n", fpregs.cwd);
+        printw("swd: %hX\n", fpregs.swd);
+        printw("ftw: %hX\n", fpregs.ftw);
+        printw("fop: %hX\n", fpregs.fop);
         printw("rip: %llu\n", fpregs.rip);
         printw("rdp: %llu\n", fpregs.rdp);
         printw("mxcsr: %X\n", fpregs.mxcsr);
